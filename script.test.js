@@ -1,4 +1,9 @@
-import { capitalize, reverseString, calculator } from './script.js';
+import {
+  capitalize,
+  reverseString,
+  calculator,
+  caesarCipher,
+} from './script.js';
 
 describe('capitalize', () => {
   it('should capitalize the first character of a string', () => {
@@ -80,5 +85,92 @@ describe('calculator', () => {
       expect(calculator.multiply(-2, -2)).toEqual(4);
       expect(calculator.multiply(0, 1)).toEqual(0);
     });
+  });
+});
+
+describe('caesarCipher', () => {
+  it('should shift characters in the string', () => {
+    expect(caesarCipher('abc', 1)).toEqual('bcd');
+    expect(caesarCipher('hello world', 5)).toEqual('mjqqt btwqi');
+    expect(caesarCipher('abcdefghijklmnopqrstuvwxyz', 10)).toEqual(
+      'klmnopqrstuvwxyzabcdefghij'
+    );
+  });
+
+  it('should wrap from z to a', () => {
+    expect(caesarCipher('xyz', 1)).toEqual('yza');
+    expect(caesarCipher('z', 1)).toEqual('a');
+  });
+
+  it('should keep the same case', () => {
+    expect(caesarCipher('AbC', 1)).toEqual('BcD');
+    expect(caesarCipher('HeLLo wORld', 5)).toEqual('MjQQt bTWqi');
+  });
+
+  it('should handle punctuation', () => {
+    expect(caesarCipher('hello, world!', 5)).toEqual('mjqqt, btwqi!');
+    expect(caesarCipher('hello?world', 5)).toEqual('mjqqt?btwqi');
+  });
+});
+
+describe('analyzeArray', () => {
+  it('should return an object with average, min, max, and length properties', () => {
+    const arr = [1, 2, 3, 4, 5];
+    const result = analyzeArray(arr);
+    expect(result).toHaveProperty('average');
+    expect(result).toHaveProperty('min');
+    expect(result).toHaveProperty('max');
+    expect(result).toHaveProperty('length');
+  });
+
+  it('should calculate the average of the array', () => {
+    const arr = [1, 2, 3, 4, 5];
+    const result = analyzeArray(arr);
+    expect(result.average).toBe(3);
+  });
+
+  it('should find the minimum value in the array', () => {
+    const arr = [1, 2, 3, 4, 5];
+    const result = analyzeArray(arr);
+    expect(result.min).toBe(1);
+  });
+
+  it('should find the maximum value in the array', () => {
+    const arr = [1, 2, 3, 4, 5];
+    const result = analyzeArray(arr);
+    expect(result.max).toBe(5);
+  });
+
+  it('should return the length of the array', () => {
+    const arr = [1, 2, 3, 4, 5];
+    const result = analyzeArray(arr);
+    expect(result.length).toBe(arr.length);
+  });
+
+  it('should return an object with correct values for negative numbers', () => {
+    const arr = [-1, -2, -3, -4, -5];
+    const result = analyzeArray(arr);
+    expect(result.average).toBe(-3);
+    expect(result.min).toBe(-5);
+    expect(result.max).toBe(-1);
+    expect(result.length).toBe(arr.length);
+  });
+
+  it('should return an object with correct values for decimal numbers', () => {
+    const arr = [1.5, 2.5, 3.5, 4.5, 5.5];
+    const result = analyzeArray(arr);
+    expect(result.average).toBe(3.5);
+    expect(result.min).toBe(1.5);
+    expect(result.max).toBe(5.5);
+    expect(result.length).toBe(arr.length);
+  });
+
+  it('should return an object with correct values for an empty array', () => {
+    const arr = [];
+    const result = analyzeArray(arr);
+    expect(result.average).toBeNaN();
+    expect(result.min).toBeUndefined();
+    expect(result.max).toBeUndefined();
+    expect(result.length).toBe(arr.length);
   });
 });

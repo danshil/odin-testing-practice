@@ -19,4 +19,19 @@ const calculator = {
   multiply: (a, b) => a * b,
 };
 
-export { capitalize, reverseString, calculator };
+function caesarCipher(string, shift) {
+  return string
+    .split('')
+    .map((char) => {
+      let charCode = char.charCodeAt(0);
+      if (charCode >= 97 && charCode <= 122) {
+        charCode = ((charCode - 97 + shift) % 26) + 97;
+      } else if (charCode >= 65 && charCode <= 90) {
+        charCode = ((charCode - 65 + shift) % 26) + 65;
+      }
+      return String.fromCharCode(charCode);
+    })
+    .join('');
+}
+
+export { capitalize, reverseString, calculator, caesarCipher };

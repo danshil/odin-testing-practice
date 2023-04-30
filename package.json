@@ -5,7 +5,6 @@
   "main": "script.js",
   "scripts": {
     "test": "jest",
-    "build": "",
     "watch": "jest --watchAll"
   },
   "repository": {
