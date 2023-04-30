@@ -3,6 +3,7 @@ import {
   reverseString,
   calculator,
   caesarCipher,
+  analyzeArray,
 } from './script.js';
 
 describe('capitalize', () => {
@@ -171,6 +172,15 @@ describe('analyzeArray', () => {
     expect(result.average).toBeNaN();
     expect(result.min).toBeUndefined();
     expect(result.max).toBeUndefined();
+    expect(result.length).toBe(arr.length);
+  });
+
+  it('should return an object with correct values for an array of only 0', () => {
+    const arr = [0];
+    const result = analyzeArray(arr);
+    expect(result.average).toBe(0);
+    expect(result.min).toBe(0);
+    expect(result.max).toBe(0);
     expect(result.length).toBe(arr.length);
   });
 });

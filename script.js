@@ -34,4 +34,19 @@ function caesarCipher(string, shift) {
     .join('');
 }
 
-export { capitalize, reverseString, calculator, caesarCipher };
+function analyzeArray(arr) {
+  arr.sort((a, b) => a - b);
+  let sum = arr.reduce((pre, cur) => pre + cur, 0);
+  const average = sum / arr.length;
+  const min = arr[0];
+  const max = arr[arr.length - 1];
+  const length = arr.length;
+  return {
+    average,
+    min,
+    max,
+    length,
+  };
+}
+
+export { capitalize, reverseString, calculator, caesarCipher, analyzeArray };
